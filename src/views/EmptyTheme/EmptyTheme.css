@@ -1,0 +1,8 @@
+.empty {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #14181a;
+    color: #859289;
+    font: 1rem/1.6 system-ui, sans-serif;
+}

@@ -1,0 +1,10 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+html, body {
+    margin: 0;
+    background: #1c2225;
+}
+button {
+    font: inherit;
+}
