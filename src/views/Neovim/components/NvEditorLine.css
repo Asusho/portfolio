@@ -3,4 +3,5 @@
 .num { flex: none; width: 4.2ch; padding-right: 1.4ch; color: var(--bg3); text-align: right; user-select: none; }
 .ln.cur .num { color: var(--yellow); }
 .code { flex: 1; min-width: 0; max-width: 92ch; padding-right: 1.5rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+.code.wide { max-width: none; }
 @media (max-width: 800px) { .num { width: 3.2ch; } }

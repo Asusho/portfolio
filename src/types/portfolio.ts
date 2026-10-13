@@ -16,6 +16,7 @@ export interface Project{
     stack?: string[];
     tags: string[];
     url?:  string;
+    repo?: string;
     status: ProjectStatus;
     image?: string;
     video?: string;

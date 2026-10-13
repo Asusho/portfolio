@@ -39,6 +39,42 @@
       "url": ""
     },
     {
+      "id": "mc-mythic-armory",
+      "title": "Mythic Armory & Custom Enchantments",
+      "category": "MODS",
+      "domains": ["mods"],
+      "description": "Un datapack Minecraft 1.21.x qui transcende le combat et l'exploration.\n\nCe datapack enrichit l'expérience de jeu en introduisant des enchantements uniques aux mécaniques avancées et un set d'armes légendaires à obtenir en terrassant les plus grands boss du jeu.",
+      "status": "finished",
+      "tags": ["Gameplay", "Jeu Video", "Mods", "Minecraft"],
+      "repo": "Asusho/Minecraft-Datapack-Mythic-Armory-Custom-Enchantments",
+      "url": "https://github.com/Asusho/Minecraft-Datapack-Mythic-Armory-Custom-Enchantments",
+      "relatedProjects": ["mc-recall-totem"]
+    },
+    {
+      "id": "mc-recall-totem",
+      "title": "Recall-Totem",
+      "category": "MODS",
+      "domains": ["mods"],
+      "description": "Un datapack Vanilla+ pour Minecraft 1.21.1 qui introduit une mécanique de survie essentielle : la possibilité de retourner sur le lieu de votre dernier trépas. Plus besoin de noter vos coordonnées en urgence !",
+      "status": "finished",
+      "tags": ["Gameplay", "Jeu Video", "Mods", "Minecraft"],
+      "repo": "Asusho/Minecraft-Datapack-Recall-Totem",
+      "url": "https://github.com/Asusho/Minecraft-Datapack-Recall-Totem",
+      "relatedProjects": ["mc-mythic-armory"]
+    },
+    {
+      "id": "bingo",
+      "title": "Bingo",
+      "category": "MOBILE APP",
+      "domains": ["mobile"],
+      "description": "Application Flutter de tirage de numero",
+      "status": "finished",
+      "tags": ["Android", "App"],
+      "stack": ["Flutter"],
+      "repo": "Asusho/bingo",
+      "url": "https://github.com/Asusho/bingo"
+    },
+    {
       "id": "vr-pfe",
       "title": "Système de coopération interactive 3D en réalité virtuelle",
       "category": "RÉALITÉ VIRTUELLE",

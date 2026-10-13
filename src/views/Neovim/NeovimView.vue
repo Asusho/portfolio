@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick } from 'vue'
+import { computed, nextTick, watch } from 'vue'
 import { useResponsiveSidebar } from '@/composables/useResponsiveSidebar.ts'
 import { useImageViewer } from '@/composables/useImageViewer.ts'
 import ThemeLayout from '../../layouts/ThemeLayout.vue'
@@ -18,6 +18,7 @@ import { useCommandLine } from './composables/useCommandLine'
 import { useExplorer } from './composables/useExplorer'
 import { useVimKeys } from './composables/useVimKeys'
 import type { Tok } from './types'
+import { useGithubReadme } from '@/composables/useGithubReadme'
 
 const props = defineProps<ThemeViewProps>()
 
@@ -32,7 +33,12 @@ const { open, current, cursor, openBuffer, closeBuffer, closeOthers, moveCursor 
   closeOnMobile()
   void nextTick(() => say(`"${buf.path}" ${lines.value.length}L`))
 })
-const lines = computed(() => buildLines(current.value, props))
+
+const { states: readmes, load: loadReadme } = useGithubReadme()
+const currentRepo = computed(() => props.portfolio.projects.find((p) => `project:${p.id}` === current.value)?.repo)
+watch(currentRepo, (repo) => { if (repo) void loadReadme(repo) }, { immediate: true })
+
+const lines = computed(() => buildLines(current.value, props, readmes))
 
 const { cmdOpen, cmdText, message, messageErr, say, openCmd, closeCmd, submitCmd } = useCommandLine({
   edit: (arg) => {
@@ -63,7 +69,8 @@ useVimKeys({
 })
 
 function follow(tok: Tok) {
-  if (tok.go) openBuffer(tok.go)
+  if (tok.go === 'readme:retry' && currentRepo.value) void loadReadme(currentRepo.value, true)
+  else if (tok.go) openBuffer(tok.go)
 }
 
 const openBuffers = computed(() => open.value.map((id) => ({ id, name: resolve(id)?.name ?? id })))

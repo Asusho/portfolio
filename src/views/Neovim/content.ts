@@ -2,6 +2,8 @@ import type { Project } from '@/types/portfolio.ts'
 import { asset } from '@/utils/asset.ts'
 import { statusLabel, type ThemeViewProps } from '../shared'
 import type { Line, Tok } from './types'
+import type { ReadmeState } from '@/composables/useGithubReadme'
+import { markdownToLines } from './markdown'
 
 const tk = (t: string, c?: string, extra: Partial<Tok> = {}): Tok => ({ t, c, ...extra })
 const imgRow = (src: string, alt: string, caption: string): Line => [{ t: '', img: { src: asset(src), alt, caption } }]
@@ -125,7 +127,19 @@ function stackLines(stack: string[] | undefined): Line[] {
     return [[], [tk('## Technologies', 'h')], [], row]
 }
 
-function projectLines(p: Project, all: Project[]): Line[] {
+
+function readmeSection(p: Project, state?: ReadmeState): Line[] {
+    if (!p.repo) return []
+    const head: Line[] = [
+        [tk('## README', 'h')], [],
+        [tk('- '), tk(p.repo, 'link', { href: `https://github.com/${p.repo}` }), tk('  (voir sur GitHub)', 'com')], [],
+    ]
+    if (!state || state.status === 'loading') return [...head, [tk('-- chargement du README…', 'com')]]
+    if (state.status === 'error') return [...head, [tk(`E: ${state.message}`, 'err')], [tk('Réessayer : '), tk('réessayer', 'cmd', { go: 'readme:retry' })]]
+    return [...head, ...markdownToLines(state.text, p.repo)]
+}
+
+function projectLines(p: Project,  all: Project[], readme?: ReadmeState): Line[] {
     const sc = { finished: 'ok', ongoing: 'warn', concept: 'mut' }[p.status]
     const box = { finished: '[x]', ongoing: '[~]', concept: '[ ]' }[p.status]
     const rel = related(p, all)
@@ -135,6 +149,8 @@ function projectLines(p: Project, all: Project[]): Line[] {
     const link: Line[] = p.url
         ? [[], [tk('## Lien', 'h')], [], [tk('- '), tk('[Ouvrir le projet]', 'link', { href: p.url }), tk(`(${p.url})`, 'com')]]
         : []
+    // Quand le README du dépôt est affiché, il contient déjà le titre et la description du projet.
+    const intro: Line[] = readme?.status === 'ok' ? [] : [[tk(`# ${p.title}`, 'h')], [], [tk(p.description)], []]
     return [
         [tk('---', 'mut')],
         [tk('title', 'key'), tk(': '), tk(`"${p.title}"`, 'str')],
@@ -142,7 +158,8 @@ function projectLines(p: Project, all: Project[]): Line[] {
         [tk('domains', 'key'), tk(`: [${p.domains.join(', ')}]`)],
         [tk('tags', 'key'), tk(`: [${p.tags.join(', ')}]`)],
         [tk('---', 'mut')], [],
-        [tk(`# ${p.title}`, 'h')], [], inline(p.description), [],
+        ...intro,
+        ...readmeSection(p, readme),
         projectMedia(p), [],
         [tk('## Statut', 'h')], [], [tk(`- ${box} `, sc), tk(statusLabel(p.status))],
         ...stackLines(p.stack),
@@ -152,7 +169,7 @@ function projectLines(p: Project, all: Project[]): Line[] {
 }
 
 /** Construit les lignes d'un fichier. C'est ici qu'on modifie les textes du site. */
-export function buildLines(id: string, ctx: ThemeViewProps): Line[] {
+export function buildLines(id: string, ctx: ThemeViewProps, readmes: Record<string, ReadmeState> = {}): Line[] {
     switch (id) {
         case 'README.md': return readmeLines(ctx)
         case 'about.md': return aboutLines(ctx)
@@ -161,5 +178,5 @@ export function buildLines(id: string, ctx: ThemeViewProps): Line[] {
         case 'help.txt': return helpLines()
     }
     const p = ctx.portfolio.projects.find((x) => `project:${x.id}` === id)
-    return p ? projectLines(p, ctx.portfolio.projects) : [[]]
+    return p ? projectLines(p, ctx.portfolio.projects, p.repo ? readmes[p.repo] : undefined) : [[]]
 }

@@ -21,3 +21,23 @@
 }
 .nvim button { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; text-align: left; }
 .nvim :focus-visible { outline: 1px solid var(--aqua); outline-offset: -1px; }
+
+/* Barres de défilement : fines, arrondies, aux couleurs du thème */
+.nvim { color-scheme: dark; }
+
+.nvim ::-webkit-scrollbar { width: 10px; height: 10px; }
+.nvim ::-webkit-scrollbar-track { background: transparent; }
+.nvim ::-webkit-scrollbar-corner { background: transparent; }
+.nvim ::-webkit-scrollbar-thumb {
+    background: var(--bg3);
+    border: 2px solid transparent;
+    background-clip: content-box; /* la bordure transparente affine visuellement la barre */
+    border-radius: 10px;
+}
+.nvim ::-webkit-scrollbar-thumb:hover { background: var(--grey); background-clip: content-box; }
+.nvim ::-webkit-scrollbar-thumb:active { background: var(--green); background-clip: content-box; }
+
+/* Firefox ne connaît que ces deux propriétés : fine, avec la couleur du thème */
+@supports not selector(::-webkit-scrollbar) {
+    .nvim * { scrollbar-width: thin; scrollbar-color: var(--bg3) transparent; }
+}
