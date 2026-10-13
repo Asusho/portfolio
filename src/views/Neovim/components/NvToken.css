@@ -1,0 +1,34 @@
+.h { color: var(--green); font-weight: 700; }
+.kw { color: var(--red); }
+.str { color: var(--aqua); }
+.key { color: var(--blue); }
+.fn { color: var(--yellow); }
+.com, .mut { color: var(--grey); }
+.com { font-style: italic; }
+.ok { color: var(--green); }
+.warn { color: var(--yellow); }
+.err { color: var(--red); }
+.cmd { color: var(--orange); }
+
+
+/* Liens : un fond qui balaie le texte de gauche à droite au survol */
+.link, .golink {
+    --hl: var(--purple);
+    color: var(--hl);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: 0 .2em;
+    margin: 0 -.2em;
+    background: linear-gradient(var(--hl), var(--hl)) no-repeat right center / 0 100%;
+    transition: background-size .3s ease, color .3s ease;
+}
+.golink.fn { --hl: var(--yellow); text-decoration: none; }
+
+.link:hover, .link:focus-visible, .golink:hover, .golink:focus-visible {
+    background-position: left center;
+    background-size: 100% 100%;
+    color: var(--bg);
+    text-decoration-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) { .link, .golink { transition: none; } }

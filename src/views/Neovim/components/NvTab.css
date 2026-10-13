@@ -1,0 +1,5 @@
+.tab { display: flex; align-items: center; gap: .3rem; padding: 0 .4rem 0 .9rem; color: var(--grey); border-top: 2px solid transparent; white-space: nowrap; }
+.tab > button:first-child { padding: .45rem 0; }
+.tab.on { background: var(--bg); color: var(--fg); border-top-color: var(--green); }
+.x { padding: 0 .35rem; color: var(--grey); }
+.x:hover { color: var(--red); }

@@ -1,0 +1,4 @@
+.cmdline { display: flex; min-height: 1.8em; padding: 0 .9rem; color: var(--fg); font-size: .85rem; cursor: text; }
+.err { color: var(--red); }
+.colon { color: var(--orange); }
+input { flex: 1; border: 0; outline: 0; background: none; color: var(--fg); font: inherit; }

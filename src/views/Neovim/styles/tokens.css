@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* Variables et réglages de base du thème Neovim. Pour changer l'ambiance, modifie la palette. */
+.nvim {
+    /* Palette (inspirée d'Everforest) */
+    --bg: #1c2225; --bg1: #232a2e; --bg2: #2d353b; --bg3: #3a464c;
+    --fg: #d3c6aa; --grey: #859289;
+    --green: #a7c080; --aqua: #83c092; --yellow: #dbbc7f; --orange: #e69875;
+    --red: #e67e80; --blue: #7fbbb3; --purple: #d699b6; --link-color: #f3c0e5;
+
+    /* Réglages lus par ThemeLayout */
+    --header-bg: var(--bg1);
+    --header-border: 1px solid var(--bg3);
+    --sidebar-bg: var(--bg1);
+    --sidebar-border: 1px solid var(--bg3);
+    --header-height: 2.2rem;
+
+    background: var(--bg);
+    color: var(--fg);
+    font: 400 .9rem/1.65 'JetBrains Mono', ui-monospace, monospace;
+}
+.nvim button { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; text-align: left; }
+.nvim :focus-visible { outline: 1px solid var(--aqua); outline-offset: -1px; }
