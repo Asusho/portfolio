@@ -4,12 +4,13 @@ import { statusLabel, type ThemeViewProps } from '../shared'
 import type { Line, Tok } from './types'
 import type { ReadmeState } from '@/composables/useGithubReadme'
 import { markdownToLines } from './markdown'
+import { primaryDomain } from './buffers'
 
 const tk = (t: string, c?: string, extra: Partial<Tok> = {}): Tok => ({ t, c, ...extra })
 const imgRow = (src: string, alt: string, caption: string): Line => [{ t: '', img: { src: asset(src), alt, caption } }]
 
 // [texte](https://...) = lien externe ; [texte](project:web-dashboard) = lien vers un autre projet
-const LINK = /\[([^\]]+)\]\((https?:\/\/[^\s)]+|project:[\w-]+)\)/g
+const LINK = /\[([^\]]+)]\((https?:\/\/[^\s)]+|project:[\w-]+)\)/g
 
 /** Transforme un texte contenant des liens Markdown en morceaux : texte simple et liens cliquables. */
 function inline(text: string, c?: string): Line {
@@ -44,13 +45,13 @@ const projectMedia = (p: Project): Line => {
 }
 
 /** Touches du README → fichier à ouvrir. Partagé avec le clavier. */
-export function readmeTargets(projects: Project[]): Record<string, string> {
-    return { a: 'about.md', s: 'skills.lua', c: 'contact.sh', p: projects[0] ? `project:${projects[0].id}` : 'about.md' }
+export function readmeTargets(): Record<string, string> {
+    return { a: 'about.md', s: 'skills.lua', c: 'contact.sh', p: 'projects/index.md' }
 }
 
-function readmeLines({ portfolio, projects }: ThemeViewProps): Line[] {
+function readmeLines({ portfolio }: ThemeViewProps): Line[] {
     const pr = portfolio.profile
-    const to = readmeTargets(projects)
+    const to = readmeTargets()
     const menu = (key: string, label: string, file: string): Line => [tk('  '), tk(`[${key}]`, 'key'), tk('  '), tk(label.padEnd(18), 'fn', { go: to[key] }), tk(file, 'com')]
     return [
         [tk(`# ${pr.firstName} ${pr.lastName}`, 'h')], [],
@@ -115,6 +116,32 @@ function helpLines(): Line[] {
     return [[tk('# Aide', 'h')], [], ...HELP.map(([k, d]): Line => [tk(k.padEnd(34), 'cmd'), tk(d, 'mut')])]
 }
 
+function projectIndexLines(projects: Project[]): Line[] {
+    const byDomain = new Map<string, Project[]>()
+    for (const project of projects) {
+        const domain = primaryDomain(project)
+        byDomain.set(domain, [...(byDomain.get(domain) ?? []), project])
+    }
+    const statusColor = { finished: 'ok', ongoing: 'warn', concept: 'mut' } as const
+
+    return [
+        [tk('# Projets', 'h')], [],
+        [tk(`${projects.length} projet${projects.length > 1 ? 's' : ''}` , 'com')], [],
+        ...(projects.length
+            ? [...byDomain].flatMap(([domain, items]): Line[] => [
+                [tk(`## ${domain}/`, 'h')],
+                [],
+                ...items.map((p): Line => [
+                    tk('- '),
+                    tk(p.title, 'link', { go: `project:${p.id}` }),
+                    tk(`  ${statusLabel(p.status)}`, statusColor[p.status]),
+                ]),
+                [],
+            ])
+            : [[tk('Aucun projet à afficher.', 'mut')]]),
+    ]
+}
+
 function related(p: Project, all: Project[]) {
     const ids = new Set([...(p.relatedProjects ?? []), ...all.filter((q) => q.relatedProjects?.includes(p.id)).map((q) => q.id)])
     return all.filter((q) => ids.has(q.id))
@@ -150,7 +177,7 @@ function projectLines(p: Project,  all: Project[], readme?: ReadmeState): Line[]
         ? [[], [tk('## Lien', 'h')], [], [tk('- '), tk('[Ouvrir le projet]', 'link', { href: p.url }), tk(`(${p.url})`, 'com')]]
         : []
     // Quand le README du dépôt est affiché, il contient déjà le titre et la description du projet.
-    const intro: Line[] = readme?.status === 'ok' ? [] : [[tk(`# ${p.title}`, 'h')], [], [tk(p.description)], []]
+    const intro: Line[] = readme?.status === 'ok' ? [] : [[tk(`# ${p.title}`, 'h')], [], inline(p.description), []]
     return [
         [tk('---', 'mut')],
         [tk('title', 'key'), tk(': '), tk(`"${p.title}"`, 'str')],
@@ -176,6 +203,7 @@ export function buildLines(id: string, ctx: ThemeViewProps, readmes: Record<stri
         case 'skills.lua': return skillsLines(ctx)
         case 'contact.sh': return contactLines(ctx)
         case 'help.txt': return helpLines()
+        case 'projects/index.md': return projectIndexLines(ctx.projects)
     }
     const p = ctx.portfolio.projects.find((x) => `project:${x.id}` === id)
     return p ? projectLines(p, ctx.portfolio.projects, p.repo ? readmes[p.repo] : undefined) : [[]]

@@ -13,6 +13,13 @@ const pick = (ids: string[]) => staticBufs.filter((b) => ids.includes(b.id))
 /** Fichiers affichés avant et après le dossier projects/ dans l'explorateur. */
 export const treeTop = pick(['README.md', 'about.md', 'skills.lua'])
 export const treeBottom = pick(['contact.sh'])
+export const projectsIndex: Buf = {
+    id: 'projects/index.md',
+    name: 'index.md',
+    path: 'projects/index.md',
+    ft: 'markdown',
+    icon: '',
+}
 
 export const primaryDomain = (p: Project): ProjectDomain => p.domains[0] ?? 'other'
 
@@ -27,6 +34,7 @@ export const projectBuf = (p: Project): Buf => ({
 export function findBuffer(id: string, projects: Project[]): Buf | undefined {
     const fixed = staticBufs.find((b) => b.id === id)
     if (fixed) return fixed
+    if (id === projectsIndex.id) return projectsIndex
     const p = projects.find((x) => `project:${x.id}` === id)
     return p ? projectBuf(p) : undefined
 }
@@ -37,6 +45,6 @@ const stripExt = (name: string) => name.toLowerCase().replace(/\.(md|lua|log|sh|
 export function findByName(arg: string, projects: Project[]): Buf | undefined {
     const q = stripExt(arg)
     if (!q) return undefined
-    const all: Buf[] = [...staticBufs, ...projects.map(projectBuf)]
+    const all: Buf[] = [...staticBufs, projectsIndex, ...projects.map(projectBuf)]
     return all.find((b) => stripExt(b.name) === q) ?? all.find((b) => stripExt(b.name).includes(q))
 }

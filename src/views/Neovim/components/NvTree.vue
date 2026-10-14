@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Project, ProjectDomain } from '@/types/portfolio.ts'
-import { treeBottom, treeTop } from '../buffers'
+import { projectsIndex, treeBottom, treeTop } from '../buffers'
 import NvTreeNode from './NvTreeNode.vue'
 import NvFolderIcon from './NvFolderIcon.vue'
 
@@ -16,6 +16,7 @@ defineEmits<{ open: [id: string]; toggle: [key: string] }>()
 
     <NvTreeNode dir :depth="1" :open="!closed.has('projects')" label="projects/" @click="$emit('toggle', 'projects')" />
     <template v-if="!closed.has('projects')">
+      <NvTreeNode :depth="2" :icon="projectsIndex.icon" :label="projectsIndex.name" :active="current === projectsIndex.id" @click="$emit('open', projectsIndex.id)" />
       <template v-for="g in groups" :key="g.domain" >
         <NvTreeNode dir :depth="2" :open="!closed.has(g.domain)" :label="`${g.domain}/`" :count="g.items.length" @click="$emit('toggle', g.domain)" />
         <template v-if="!closed.has(g.domain)">

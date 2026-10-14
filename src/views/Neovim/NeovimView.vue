@@ -63,7 +63,7 @@ useVimKeys({
   move: (step) => moveCursor(step, lines.value.length),
   shortcut: (key) => {
     if (current.value !== 'README.md') return
-    const target = readmeTargets(props.projects)[key]
+    const target = readmeTargets()[key]
     if (target) openBuffer(target)
   },
 })
