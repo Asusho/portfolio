@@ -1,6 +1,50 @@
-.tabline { display: flex; align-items: stretch; overflow: hidden;height: 28px }
-.burger { padding: 0 .9rem; color: var(--grey); }
+.tabline { position: relative; display: flex; align-items: stretch; overflow: hidden;height: 32px; }
+.burger { padding: 0 2rem 0 1rem; color: var(--grey); font-size: 150% }
 .burger:hover { color: var(--fg); }
-.tabs { display: flex; min-width: 0; overflow-x: auto; }
-.who { margin-left: auto; padding: .25rem 1rem; color: var(--grey); white-space: nowrap; }
+.tabs {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+.tabs::-webkit-scrollbar {
+    height: 2px;
+}
+.tabs::-webkit-scrollbar:hover {
+    height: 5px;
+}
+.tabs::-webkit-scrollbar-track {
+    background: transparent;
+}
+.tabs::-webkit-scrollbar-thumb {
+    background: var(--green);
+}
+.tabs::-webkit-scrollbar-thumb:hover {
+    background: var(--green);
+}
+
+.who {
+    position: relative;
+    z-index: 1;
+    flex: none;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: .25rem 1rem;
+    color: var(--bg);
+    white-space: nowrap;
+    background: var(--green);
+}
+.who::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 100%;
+    bottom: 0;
+    width: 2rem;
+    background: linear-gradient(to right, transparent, var(--bg));
+    pointer-events: none;
+}
 @media (max-width: 800px) { .who { display: none; } }

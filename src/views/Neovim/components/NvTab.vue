@@ -6,7 +6,7 @@ defineEmits<{ select: []; close: [] }>()
 <template>
   <div class="tab" :class="{ on: active }" role="presentation">
     <button role="tab" :aria-selected="!!active" @click="$emit('select')">
-      <span class="tab-icon" aria-hidden="true">{{ icon }}</span>{{ name }}
+      <span class="tab-icon" aria-hidden="true">{{ icon }} </span>{{ name }}
     </button>
     <button v-if="closable" class="x" :aria-label="`Fermer ${name}`" @click="$emit('close')">×</button>
   </div>

@@ -10,7 +10,6 @@ defineEmits<{ open: [id: string]; toggle: [key: string] }>()
 
 <template>
   <nav class="tree" aria-label="Explorateur de fichiers">
-    <p class="tree-head">EXPLORER</p>
     <p class="root-dir"><NvFolderIcon open /> portfolio/</p>
 
     <NvTreeNode v-for="b in treeTop" :key="b.id" :depth="1" :icon="b.icon" :label="b.name" :active="current === b.id" @click="$emit('open', b.id)" />

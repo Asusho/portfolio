@@ -1,13 +1,6 @@
 .tree {
     padding: .6rem 0;
 }
-.tree-head {
-    margin: 0 0 .5rem;
-    padding: 0 1rem;
-    color: var(--grey);
-    font-size: .72rem;
-    letter-spacing: .14em;
-}
 .root-dir {
     display: flex;
     align-items: center;

@@ -20,6 +20,7 @@
 .tab-icon {
     margin-right: .4rem;
     color: var(--aqua);
+    letter-spacing: 0.3rem;
 }
 .tab.on {
     background: var(--bg2);
