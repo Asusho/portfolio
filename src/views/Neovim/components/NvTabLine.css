@@ -1,6 +1,6 @@
-.tabline { display: flex; align-items: stretch; overflow: hidden; }
+.tabline { display: flex; align-items: stretch; overflow: hidden;height: 28px }
 .burger { padding: 0 .9rem; color: var(--grey); }
 .burger:hover { color: var(--fg); }
 .tabs { display: flex; min-width: 0; overflow-x: auto; }
-.who { margin-left: auto; padding: .45rem 1rem; color: var(--grey); white-space: nowrap; }
+.who { margin-left: auto; padding: .25rem 1rem; color: var(--grey); white-space: nowrap; }
 @media (max-width: 800px) { .who { display: none; } }

@@ -8,3 +8,13 @@ html, body {
 button {
     font: inherit;
 }
+
+
+
+@font-face {
+    font-family: 'Fira Code';
+    src: url('@/assets/fonts/FiraCodeNerdFont-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap; /* Améliore le chargement */
+}

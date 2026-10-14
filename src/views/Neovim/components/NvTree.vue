@@ -20,7 +20,7 @@ defineEmits<{ open: [id: string]; toggle: [key: string] }>()
       <template v-for="g in groups" :key="g.domain" >
         <NvTreeNode dir :depth="2" :open="!closed.has(g.domain)" :label="`${g.domain}/`" :count="g.items.length" @click="$emit('toggle', g.domain)" />
         <template v-if="!closed.has(g.domain)">
-          <NvTreeNode v-for="p in g.items" :key="p.id" :depth="3" icon="◆" :label="`${p.id}.md`" :status="p.status"
+          <NvTreeNode v-for="p in g.items" :key="p.id" :depth="3" icon="" :label="`${p.id}.md`" :status="p.status"
                       :active="current === `project:${p.id}`" @click="$emit('open', `project:${p.id}`)" />
         </template>
       </template>

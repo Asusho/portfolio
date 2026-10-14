@@ -1,12 +1,12 @@
-import type { Project, ProjectDomain } from '../../types/portfolio'
+import type { Project, ProjectDomain } from '@/types/portfolio.ts'
 import type { Buf, StaticBuf } from './types'
 
 export const staticBufs: StaticBuf[] = [
-    { id: 'README.md', name: 'README.md', path: 'README.md', ft: 'markdown', icon: '◆' },
-    { id: 'about.md', name: 'about.md', path: 'about.md', ft: 'markdown', icon: '◆' },
-    { id: 'skills.lua', name: 'skills.lua', path: 'skills.lua', ft: 'lua', icon: '☾' },
-    { id: 'contact.sh', name: 'contact.sh', path: 'contact.sh', ft: 'sh', icon: '$' },
-    { id: 'help.txt', name: 'help.txt', path: 'help.txt', ft: 'help', icon: '?' },
+    { id: 'README.md', name: 'README.md', path: 'README.md', ft: 'markdown', icon: '' },
+    { id: 'about.md', name: 'about.md', path: 'about.md', ft: 'markdown', icon: '' },
+    { id: 'skills.lua', name: 'skills.lua', path: 'skills.lua', ft: 'lua', icon: '' },
+    { id: 'contact.sh', name: 'contact.sh', path: 'contact.sh', ft: 'sh', icon: '' },
+    { id: 'help.txt', name: 'help.txt', path: 'help.txt', ft: 'help', icon: '' },
 ]
 
 const pick = (ids: string[]) => staticBufs.filter((b) => ids.includes(b.id))
@@ -21,6 +21,7 @@ export const projectBuf = (p: Project): Buf => ({
     name: `${p.id}.md`,
     path: `projects/${primaryDomain(p)}/${p.id}.md`,
     ft: 'markdown',
+    icon: '',
 })
 
 export function findBuffer(id: string, projects: Project[]): Buf | undefined {

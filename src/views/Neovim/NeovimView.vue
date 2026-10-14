@@ -73,7 +73,10 @@ function follow(tok: Tok) {
   else if (tok.go) openBuffer(tok.go)
 }
 
-const openBuffers = computed(() => open.value.map((id) => ({ id, name: resolve(id)?.name ?? id })))
+const openBuffers = computed(() => open.value.map((id) => {
+  const buf = resolve(id)
+  return { id, name: buf?.name ?? id, icon: buf?.icon ?? '◆' }
+}))
 const currentBuf = computed(() => resolve(current.value))
 const crumbs = computed(() => ['portfolio', ...(currentBuf.value?.path.split('/') ?? [])])
 const percent = computed(() => (lines.value.length < 2 ? 'All' : `${Math.round((cursor.value / (lines.value.length - 1)) * 100)}%`))

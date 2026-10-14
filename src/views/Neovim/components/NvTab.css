@@ -1,5 +1,35 @@
-.tab { display: flex; align-items: center; gap: .3rem; padding: 0 .4rem 0 .9rem; color: var(--grey); border-top: 2px solid transparent; white-space: nowrap; }
-.tab > button:first-child { padding: .45rem 0; }
-.tab.on { background: var(--bg); color: var(--fg); border-top-color: var(--green); }
-.x { padding: 0 .35rem; color: var(--grey); }
-.x:hover { color: var(--red); }
+.tab {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    padding: 0 .5rem 0 1rem;
+    color: var(--grey);
+    border-top: 2px solid transparent;
+    white-space: nowrap;
+    clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
+    background: var(--bg);
+}
+.tab:hover{
+    background: var(--bg2);
+}
+.tab > button:first-child {
+    padding: 0 0;
+    margin: 0;
+}
+.tab-icon {
+    margin-right: .4rem;
+    color: var(--aqua);
+}
+.tab.on {
+    background: var(--bg2);
+    color: var(--fg);
+    border-top-color: var(--green);
+}
+.x {
+    padding: 0 .35rem;
+    color: var(--grey);
+}
+.x:hover {
+    color: var(--red);
+}

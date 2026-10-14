@@ -17,7 +17,7 @@
 
     background: var(--bg);
     color: var(--fg);
-    font: 400 .9rem/1.65 'JetBrains Mono', ui-monospace, monospace;
+    font: 400 .9rem/1.65 'Fira Code', 'JetBrains Mono', ui-monospace, monospace;
 }
 .nvim button { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; text-align: left; }
 .nvim :focus-visible { outline: 1px solid var(--aqua); outline-offset: -1px; }

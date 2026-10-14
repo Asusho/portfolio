@@ -1,7 +1,7 @@
 import type { PortfolioImage } from '@/types/portfolio.ts'
 
 /** Un « fichier » ouvrable dans l'éditeur. */
-export interface Buf { id: string; name: string; path: string; ft: string }
+export interface Buf { id: string; name: string; path: string; ft: string; icon?: string }
 export interface StaticBuf extends Buf { icon: string }
 
 export type Img = PortfolioImage

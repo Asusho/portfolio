@@ -34,7 +34,7 @@
       "domains": ["game"],
       "description": "Mélange d'un jeu de course et d'un jeu de combat en arene. Inspiré de Jak X, Destruction Derby ou Wreckfest.",
       "stack": ["Unity", "C#"],
-      "status": "ongoing",
+      "status": "concept",
       "tags": ["Gameplay", "Jeu Video"],
       "url": ""
     },

@@ -1,9 +1,9 @@
 .node { display: flex; align-items: center; gap: .5rem; width: 100%; padding: .05rem 1rem; color: var(--fg); white-space: nowrap; }
 .node:hover { background: var(--bg2); }
 .node.dir { color: var(--blue); }
-.d1 { padding-left: 1.8rem; }
-.d2 { padding-left: 2.8rem; }
-.d3 { padding-left: 3.8rem; }
+.d1 { padding-left: 1.6rem; }
+.d2 { padding-left: 2.2rem; }
+.d3 { padding-left: 3rem; }
 .node.active { background: var(--bg3); box-shadow: inset 2px 0 var(--green); }
 .ico { color: var(--aqua); width: 1ch; }
 .git { margin-left: auto; font-style: normal; }
