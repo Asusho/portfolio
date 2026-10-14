@@ -10,6 +10,7 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
+  base : '/portfolio', // nom exact du repo pou github pages
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
