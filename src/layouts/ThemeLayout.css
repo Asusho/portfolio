@@ -44,7 +44,7 @@
     .layout__sidebar {
         position: absolute;
         z-index: 5;
-        top: 0;
+        top: var(--header-height, 2rem);
         bottom: 0;
         box-shadow: 4px 0 20px rgba(0, 0, 0, .5);
     }
